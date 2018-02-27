@@ -1,21 +1,40 @@
 package hangmangame;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
-
 
 public class Game {
 
-private static int DIFFICULTY;
+static Scanner sc = new Scanner(System.in);
+static int DIFFICULTY;
+static String word;
 	
-private static Scanner input = new Scanner(System.in);
+public static ArrayList<String> ORDLISTA = new ArrayList<String>();
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
+
+		printWelcomeMessage();
+		promptDifficulty();
+		chooseWord();
+		
+		System.out.println(word);
+		
+		
+	}
+	
+	public static void printWelcomeMessage(){
 		
 		System.out.println("Dags för hänga gubbe förhelvete!");
 		
-		System.out.println("Välj svårhetsgrad(1 eller 2)");
+	}
+	
+	public static void promptDifficulty(){
+		
+		System.out.println("Välj svårhetsgrad(1(lätt) eller 2(svår))");
 		 
-		int svar = input.nextInt();
+		int svar = sc.nextInt();
 		
 		if(svar <= 1){
 			
@@ -28,6 +47,34 @@ private static Scanner input = new Scanner(System.in);
 		}
 		
 		System.out.println("Du valde svårighetsgrad " + DIFFICULTY );
+		
+	}
+	
+	private static void setup(File ord) throws FileNotFoundException {
+		
+		Scanner fileReader = new Scanner(ord);
+		
+		while (fileReader.hasNextLine()) {
+			
+			ORDLISTA.add(fileReader.nextLine());
+			
+		}
+		word = ORDLISTA.get((int)(Math.random()*ORDLISTA.size()));
+		fileReader.close();
+		
+	}
+	
+	public static void chooseWord() throws FileNotFoundException{
+		
+		if(DIFFICULTY==1){
+			
+			setup(new File("ord1"));
+			
+		}else if(DIFFICULTY==2){
+			
+			setup(new File("ord2"));
+			
+		}
 		
 		
 	}
