@@ -24,7 +24,6 @@ public class Game {
 		promptDifficulty();
 		chooseWord();
 		hidden();
-		System.out.println(word);
 		while (lifes >= 1 && underscore.contains("_")) {
 			String gissa = sc.next();
 			gissa = gissa.toUpperCase();
